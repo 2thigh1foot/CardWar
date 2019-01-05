@@ -28,7 +28,9 @@ class Deck:
         Draws one random card from the deck.
     '''
     def draw_card(num=1): 
-        self.cards.pop(0)
+        removedCard = self.cards.pop(0)
+        lostCards.append(removedCard)
+
 
         #Check if deck now empty
         if (len(self.cards)== 0):
