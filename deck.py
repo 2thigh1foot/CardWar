@@ -17,23 +17,25 @@ class Deck:
         self.lostCards = []
 
         #Add all of the numbered cards to the deck (36/52)
-        for (int i=1; i<11; i+=1){
-            for(suit : card.suits){
+        for (int i=1; i<11; i+=1):
+            for(suit : card.suits):
                 cards.append(Card(i, suit))
-            }
-        }
 
         #Add all of the named cards to the deck (16/52)
-        for(name : card.named){
-            for(suit : card.suits){
+        for(name : card.named):
+            for(suit : card.suits):
                 cards.append(Card(i, suit))
-            }
-        }
+            
     '''
         Draws one random card from the deck.
     '''
     def draw_card(num=1): 
         self.cards.pop(0)
+
+        #Check if deck now empty
+        if (len(self.cards)== 0):
+            self.cards = self.lostCards
+            self.cards.shuffle()
 
     '''
         Shuffles the deck using random object shuffle.
@@ -70,6 +72,12 @@ class Deck:
         #Removes the card
         lostCards.append(cardToPull)
         self.cards.remove(cardToPull)
+
+        #Check if deck now empty
+        if (len(self.cards)== 0):
+            self.cards = self.lostCards
+            self.cards.shuffle()
+
         return cardToPull
 
     '''
