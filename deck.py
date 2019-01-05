@@ -3,8 +3,6 @@ from random import shuffle
 
 # A class that represents a deck of cards
 
-#TO-DO: add "Once the deck runs out, this class should shuffle the discard deck and make it the deck." functionality
-
 class Deck:
 
     '''
