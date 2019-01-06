@@ -17,12 +17,12 @@ class Deck:
         #Add all of the numbered cards to the deck (36/52)
         for i in range(1,11):
             for suit in card.suits:
-                cards.append(Card(i, suit))
+                self.cards.append(Card(i, suit))
 
         #Add all of the named cards to the deck (16/52)
         for name in card.names:
             for suit in card.suits:
-                cards.append(Card(i, suit))
+                self.cards.append(Card(i, suit))
             
     '''
         Draws one random card from the deck.
