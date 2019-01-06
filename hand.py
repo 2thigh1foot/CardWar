@@ -5,7 +5,7 @@ from random import shuffle
 class Hand:
 
     '''
-        Default constructor for a Deck
+        Default constructor for a Hand
     '''
     def __init__(self, cards):
         self.inHand = []
