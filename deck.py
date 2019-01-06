@@ -1,47 +1,45 @@
-import random
-from random import shuffle
-
+from random import shuffle, randint
+from card import Card
 # A class that represents a deck of cards
 
 class Deck:
 
     '''
-        Default constructor for a Deck
+        Constructor for a Deck
     '''
+    fullDeck = []
+    for i in range(2,15):
+        for suit in Card.suits:
+            fullDeck.append(Card(i,suit))
+              
     def __init__(self, cards=None, lostCards=None):
         
         #Declare a list of Cards that make up a Deck
-        self.cards = []
-        self.lostCards = []
-
-        #Add all of the numbered cards to the deck (36/52)
-        for i in range(1,11):
-            for suit in card.suits:
-                self.cards.append(Card(i, suit))
-
-        #Add all of the named cards to the deck (16/52)
-        for name in card.names:
-            for suit in card.suits:
-                self.cards.append(Card(i, suit))
+        self.cards = fullDeck[::]
+		self.discard = []
+        
+      	shuffle(self.cards)
             
     '''
         Draws one random card from the deck.
     '''
     def draw_card(num=1): 
-        removedCard = self.cards.pop(0)
-        lostCards.append(removedCard)
+      	# draw_cards() -> draw_cards(1)
+        # draw_cards(5) 
+      	removedCards = []
+        for i in range(num):
+          	card = self.cards.pop(0)
+        	removedCards.append(card)
+            
+		return removedCards
 
-
-        #Check if deck now empty
-        if (len(self.cards)== 0):
-            self.cards = self.lostCards
-            self.cards.shuffle()
-
+    def discarded():
+    	return self.discard
     '''
         Shuffles the deck using random object shuffle.
     '''
     def shuffle():
-        random.shuffle(self.cards)
+        shuffle(self.cards)
     
     '''
         Returns the cards in the deck.
@@ -50,45 +48,28 @@ class Deck:
         return self.cards
 
     '''
-        Returns a list of cards removed from the deck
-    '''
-    def removed():
-        return lostCards
-
-    '''
         Resets the deck to a full one
     '''
     def reset():
-        resetDeck = remaining().append(removed())
-        self.cards = resetDeck
+        self.lostCards = []
+        self.cards = fullDeck[::]
+        shuffle(self.cards)
 
     '''
         Draws a random card from the deck
     '''
     def draw_random(num=1):
         #Selects random card
-        cardToPull =self.cards[random.randint(1,52)-1]
+        removedCards = []
+        for i in range(num):
+        	card = self.cards.pop(randint(0,len(self.cards)-1))
+        	removedCard.append(card)
+            self.lostCards(card)
 
-        #Removes the card
-        lostCards.append(cardToPull)
-        self.cards.remove(cardToPull)
-
-        #Check if deck now empty
-        if (len(self.cards)== 0):
-            self.cards = self.lostCards
-            self.cards.shuffle()
-
-        return cardToPull
+        return removedCards
 
     '''
         Removes specified card
     '''
-    def discard(card, to_disard=True):
-        self.cards.remove(card)
-
-
-
-
-
-        
-        
+    def discard(card):
+        self.discard.append(card)
