@@ -8,7 +8,7 @@ class Deck:
     '''
         Default constructor for a Deck
     '''
-    def __init__(card):
+    def __init__(self, cards=None, lostCards=None):
         
         #Declare a list of Cards that make up a Deck
         self.cards = []
