@@ -12,7 +12,7 @@ class Deck:
     '''
         Constructor for a Deck
     '''
-    def __init__(self, cards=None, lostCards=None):
+    def __init__(self):
         
         #Declare a list of Cards that make up a Deck
         self.cards = fullDeck[::]
@@ -67,6 +67,8 @@ class Deck:
 
         return removedCards
 
+    def __len__(self):
+        return len(self.cards)
     '''
         Removes specified card
     '''

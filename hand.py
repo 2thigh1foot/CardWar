@@ -10,6 +10,9 @@ class Hand:
     def __init__(self, cards=[]):
         self.cards = cards
         self.discarded = []
+
+    def __len__(self):
+        return len(self.cards+self.discarded)
         
     '''
         Play the cards specified
