@@ -66,9 +66,3 @@ class Deck:
             self.lostCards(card)
 
         return removedCards
-
-    '''
-        Removes specified card
-    '''
-    def discard_card(card):
-        self.discard.append(card)
