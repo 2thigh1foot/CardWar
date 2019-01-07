@@ -32,3 +32,11 @@ class Card:
         self.value = None
         self.suit  = None
         self.color = None
+    
+    def __repr__(self):
+        if self.value == None:
+            return "Blank"
+        if self.value < 11:
+            return "{} of {}s".format(self.value, self.suit).title()
+        name = self.named[self.value-11]
+        return "{} of {}s".format(name, self.suit).title()
