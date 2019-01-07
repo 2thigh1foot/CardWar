@@ -4,37 +4,36 @@ from card import Card
 
 class Deck:
 
-    '''
-        Constructor for a Deck
-    '''
     fullDeck = []
     for i in range(2,15):
         for suit in Card.suits:
             fullDeck.append(Card(i,suit))
               
-    def __init__(self, cards=None, lostCards=None):
+    '''
+        Constructor for a Deck
+    '''
+    def __init__(self):
         
         #Declare a list of Cards that make up a Deck
         self.cards = fullDeck[::]
-		self.discard = []
+        self.discard = []
         
-      	shuffle(self.cards)
+        shuffle(self.cards)
             
     '''
         Draws one random card from the deck.
     '''
     def draw_card(num=1): 
-      	# draw_cards() -> draw_cards(1)
-        # draw_cards(5) 
-      	removedCards = []
+        
+        removedCards = []
         for i in range(num):
-          	card = self.cards.pop(0)
-        	removedCards.append(card)
+            card = self.cards.pop(0)
+            removedCards.append(card)
             
-		return removedCards
+        return removedCards
 
     def discarded():
-    	return self.discard
+        return self.discard
     '''
         Shuffles the deck using random object shuffle.
     '''
@@ -62,14 +61,16 @@ class Deck:
         #Selects random card
         removedCards = []
         for i in range(num):
-        	card = self.cards.pop(randint(0,len(self.cards)-1))
-        	removedCard.append(card)
+            card = self.cards.pop(randint(0,len(self.cards)-1))
+            removedCard.append(card)
             self.lostCards(card)
 
         return removedCards
 
+    def __len__(self):
+        return len(self.cards)
     '''
         Removes specified card
     '''
-    def discard(card):
+    def discard_card(card):
         self.discard.append(card)
