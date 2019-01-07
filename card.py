@@ -2,9 +2,9 @@
 
 class Card:
 
-    self.suits = {"heart","spade","diamond","club"}
-    self.named = ["jack", "queen", "king","ace"]
-    def __init__(self):
+    suits = {"heart","spade","diamond","club"}
+    named = ["jack", "queen", "king","ace"]
+    def __init__(self, value=None, suit=None, color=None):
         
         # If no card specified, set all value to None
         if value == None or suit == None:
@@ -32,8 +32,3 @@ class Card:
         self.value = None
         self.suit  = None
         self.color = None
-
-
-        
-        
-        
