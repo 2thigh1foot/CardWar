@@ -56,7 +56,7 @@ class War:
         # if the highest card is tied, go to war
         # goes into this when it shouldn't trying to figure it out
         if(len(winners) > 1):
-            winner = winners.insert(0, self.round_war(winners))
+            winner = self.round_war(winners)
 
         self.hands[winner].discard(played_cards)
 
@@ -94,7 +94,10 @@ class War:
                 # Will pass a list into war so that we can have war with all winners
                 winners.append(i)
         if(len(winners) > 1):
-            winner = winner.insert(0, self.round_war(winner))
+            winner = self.round_war(winners)
+
+        for list_of_cards in played_cards:
+            self.hands[winner].discard(list_of_cards)
 
         return winner
 
