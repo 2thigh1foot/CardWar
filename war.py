@@ -35,7 +35,8 @@ class War:
         # Keeps check of the values of the cards played.
         played_cards = []
         for i in range(self.num_players):
-            self.refill_hand()
+            if self.hands[i].is_empty():
+                self.refill_hand(i)
             played_cards += self.hands[i].play_cards()
 
         # need to do this so I can keep track of index
@@ -73,7 +74,8 @@ class War:
         winners = [winning_indexes[0]]
 
         for i in range(len(winning_indexes)):
-            if len(self.hands[winning_indexes[i]].cards) == 0:
+            if self.hands[winning_indexes[i]].is_empty():
+                self.refill_hand(i)
                 played_cards[i] = self.hands[winning_indexes[i]].play_cards(
                     len(self.hands[winning_indexes[i]].cards))
             else:
@@ -104,8 +106,6 @@ class War:
         return winners.index(True)
 
     # Deals with empty hand
-    def refill_hand(self):
-        for i in range(len(self.hands)):
-            if self.hands[i].is_empty():
-                self.hands[i].shuffle()
-                self.hands[i] = Hand(self.hands[i].discarded)
+    def refill_hand(self, index):
+        self.hands[index].shuffle()
+        self.hands[index] = Hand(self.hands[i].discarded)
