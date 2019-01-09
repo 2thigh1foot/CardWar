@@ -35,16 +35,19 @@ class War:
         # Keeps check of the values of the cards played.
         played_cards = []
         for i in range(self.num_players):
+            self.refill_hand()
             played_cards += self.hands[i].play_cards()
 
         # need to do this so I can keep track of index
         highest_card = played_cards[0].value
+        winner = 0
         winners = [0]
         for i in range(1, self.num_players):
             # ensures that there is a high card
             if highest_card < played_cards[i].value:
                 highest_card = played_cards[i]
                 # Want the first index of the list to be the winner
+                winner = i
                 winners[0] = i
             if highest_card == played_cards[i].value:
                 # Will pass a list into war so that we can have war with all winners
@@ -52,14 +55,11 @@ class War:
         # if the highest card is tied, go to war
         # goes into this when it shouldn't trying to figure it out
         if(len(winners) > 1):
-            winners.insert(0, self.round_war(winners))
+            winner = winners.insert(0, self.round_war(winners))
 
-        winner_index = winners[0]
-        self.hands[winner_index].discard(played_cards)
+        self.hands[winner].discard(played_cards)
 
-        print(winners)
-
-        print(f'Player {winner_index} won this round.')
+        print(f'Player {winner} won this round.')
 
     def round_war(self, winning_indexes):
         '''Called when values equal each other
@@ -68,9 +68,16 @@ class War:
         # Keeps check of the values of the cards played.
         print('War has been initiated')
         played_cards = [[] for i in range(len(winning_indexes))]
-        winner = [winning_indexes[0]]
+
+        winner = winning_indexes[0]
+        winners = [winning_indexes[0]]
+
         for i in range(len(winning_indexes)):
-            played_cards[i] = self.hands[winning_indexes[i]].play_cards(3)
+            if len(self.hands[winning_indexes[i]].cards) == 0:
+                played_cards[i] = self.hands[winning_indexes[i]].play_cards(
+                    len(self.hands[winning_indexes[i]].cards))
+            else:
+                played_cards[i] = self.hands[winning_indexes[i]].play_cards(3)
 
         # Checks the last card playeds value
         highest_card = played_cards[0][-1].value
@@ -80,14 +87,14 @@ class War:
             if highest_card < played_cards[i][-1].value:
                 highest_card = played_cards[i][-1]
                 # Want the first index of the list to be the winner
-                winner.insert(0, i)
+                winner = i
             if highest_card == played_cards[i][-1].value:
                 # Will pass a list into war so that we can have war with all winners
-                winner.append(i)
-        if(winner.count(winner[0] > 1)):
-            winner.insert(0, self.round_war(winner))
+                winners.append(i)
+        if(len(winners) > 1):
+            winner = winner.insert(0, self.round_war(winner))
 
-        return winner[0]
+        return winner
 
     def check_winner(self):
         ''' Checks to see if there was a winner in the game yet. '''
@@ -95,3 +102,10 @@ class War:
         if sum(winners) == 0:
             return -1
         return winners.index(True)
+
+    # Deals with empty hand
+    def refill_hand(self):
+        for i in range(len(self.hands)):
+            if self.hands[i].is_empty():
+                self.hands[i].shuffle()
+                self.hands[i] = Hand(self.hands[i].discarded)

@@ -35,12 +35,6 @@ class Card:
         self.suit = None
         self.color = None
 
-    def __eq__(self, other):
-        return self.value == other
-
-    def __gt__(self, other):
-        return self.value > other
-
     def __repr__(self):
         if self.value == None:
             return "Blank"
