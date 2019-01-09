@@ -50,6 +50,7 @@ class War:
                 # Will pass a list into war so that we can have war with all winners
                 winners.append(i)
         # if the highest card is tied, go to war
+        # goes into this when it shouldn't trying to figure it out
         if(len(winners) > 1):
             winners.insert(0, self.round_war(winners))
 
