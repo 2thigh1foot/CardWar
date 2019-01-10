@@ -58,14 +58,11 @@ class War:
 
         self.hands[winner].discard(played_cards)
 
-        print(f'Player {winner} won this round.')
-
     def round_war(self, winning_indexes):
         '''Called when values equal each other
            winning_index is a list of the winners for war to initiate
         '''
         # Keeps check of the values of the cards played.
-        print('War has been initiated')
         played_cards = [[] for i in range(len(winning_indexes))]
 
         winner = winning_indexes[0]
@@ -82,12 +79,13 @@ class War:
         # Checks the last card playeds value
         highest_card = played_cards[0][-1].value
 
-        for i in range(1, len(winning_indexes)-1):
+        for i in range(1, len(played_cards)):
             # ensures that there is a high card
             if highest_card < played_cards[i][-1].value:
                 highest_card = played_cards[i][-1]
                 # Want the first index of the list to be the winner
                 winner = i
+                winners[0] = i
             if highest_card == played_cards[i][-1].value:
                 # Will pass a list into war so that we can have war with all winners
                 winners.append(i)
@@ -110,3 +108,10 @@ class War:
     def refill_hand(self, index):
         self.hands[index].shuffle()
         self.hands[index] = Hand(self.hands[index].discarded)
+
+
+game = War()
+game.deal_cards()
+while(game.check_winner() == -1):
+    game.round_winner()
+print(f'Player{game.check_winner()+1} won')
