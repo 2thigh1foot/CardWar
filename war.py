@@ -63,18 +63,19 @@ class War:
            winning_index is a list of the winners for war to initiate
         '''
         # Keeps check of the values of the cards played.
-        played_cards = [[] for i in range(len(winning_indexes))]
+        played_cards = []
 
         winner = winning_indexes[0]
         winners = [winning_indexes[0]]
 
         for i in range(len(winning_indexes)):
             if self.hands[winning_indexes[i]].is_empty():
-                self.refill_hand(i)
-                played_cards[i] = self.hands[winning_indexes[i]].play_cards(
-                    len(self.hands[winning_indexes[i]].cards))
+                self.refill_hand(winning_indexes[i])
+                played_cards.append(self.hands[winning_indexes[i]].play_cards(
+                    len(self.hands[winning_indexes[i]].cards)))
             else:
-                played_cards[i] = self.hands[winning_indexes[i]].play_cards(4)
+                played_cards.append(
+                    self.hands[winning_indexes[i]].play_cards(4))
 
         # Checks the last card playeds value
         highest_card = played_cards[0][-1].value
@@ -84,7 +85,7 @@ class War:
             if highest_card < played_cards[i][-1].value:
                 highest_card = played_cards[i][-1]
                 # Want the first index of the list to be the winner
-                winner = i
+                winner = winning_indexes[i]
                 winners[0] = i
             if highest_card == played_cards[i][-1].value:
                 # Will pass a list into war so that we can have war with all winners
@@ -108,10 +109,3 @@ class War:
     def refill_hand(self, index):
         self.hands[index].shuffle()
         self.hands[index] = Hand(self.hands[index].discarded)
-
-
-game = War()
-game.deal_cards()
-while(game.check_winner() == -1):
-    game.round_winner()
-print(f'Player{game.check_winner()+1} won')
