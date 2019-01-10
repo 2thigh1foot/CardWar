@@ -28,8 +28,6 @@ class War:
         for i in range(self.num_players):
             self.hands[i] = Hand(hands[i])
 
-        return self.hands
-
     def round_winner(self):
         ''' Checks to see which player is winner and grants them cards '''
         # Keeps check of the values of the cards played.
@@ -79,12 +77,12 @@ class War:
                 played_cards[i] = self.hands[winning_indexes[i]].play_cards(
                     len(self.hands[winning_indexes[i]].cards))
             else:
-                played_cards[i] = self.hands[winning_indexes[i]].play_cards(3)
+                played_cards[i] = self.hands[winning_indexes[i]].play_cards(4)
 
         # Checks the last card playeds value
         highest_card = played_cards[0][-1].value
 
-        for i in range(1, len(winning_indexes)):
+        for i in range(1, len(winning_indexes)-1):
             # ensures that there is a high card
             if highest_card < played_cards[i][-1].value:
                 highest_card = played_cards[i][-1]
@@ -111,4 +109,4 @@ class War:
     # Deals with empty hand
     def refill_hand(self, index):
         self.hands[index].shuffle()
-        self.hands[index] = Hand(self.hands[i].discarded)
+        self.hands[index] = Hand(self.hands[index].discarded)
