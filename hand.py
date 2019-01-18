@@ -41,7 +41,11 @@ class Hand:
         '''
         shuffle(self.discarded)
 
+    # Tells of is hand is empty
+    def is_empty(self):
+        return len(self.cards) == 0
     # print out hands
+
     def __repr__(self):
         return str(self.cards)
 
